@@ -1,3 +1,5 @@
+**NOTE** run npm install; add a file .env and add the line: SESSION_SECRET=secret;
+
 Final project &ndash; A personal blogging system &ndash; Starter project
 ==========
 This repository contains a starting point for your team's final project.
