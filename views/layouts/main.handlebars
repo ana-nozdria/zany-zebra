@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Zany Zebra</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap">
+    <link rel="stylesheet" href="/css/site.css">
+    <script type="text/javascript" src="/js/client.js"></script>
+</head>
+
+<body>
+    <div class="container-base">
+        <section class="brand-bar">
+            <a href="/" class="brand">Zany Zebra</a>
+            <p class="brand-motto">Where Blogs Go Wild!</p>
+
+            {{#if user}}
+            <div class="logout-link-container">
+                <a href="/logout" class="logout-link" id="logoutBtn">
+                    <span class="logout-icon">
+                        <i class="fa-solid fa-right-from-bracket fa-lg"></i>
+                    </span>
+                    <span class="logout-text">Logout</span>
+                </a>
+            </div>
+            {{else}}
+            <div class="login-link-container">
+                <a href="/login" class="login-link" id="loginBtn">
+                    <span class="login-icon">
+                        <i class="fa-solid fa-right-to-bracket fa-lg" id="user-btn"></i>
+                    </span>
+                    <span class="login-text">Login</span>
+                </a>
+            </div>
+            {{/if}}
+
+        </section>
+
+        <section class="register">
+            {{#if user}}
+            <p>Hey <strong>{{user.username}}</strong>! Reckon your account looks a bit outdated? <a href="/update">Update it now!</a></p>
+            {{else}}
+            <p>WARNING!! You are currently browsing this amazing site in <strong>pleb view</strong>, <a href="/register">join</a> our dazzle to unlock the VIP access!</p>
+            {{/if}}
+        </section>
+
+        <nav class="navbar">
+            {{#if myArticles}}
+            <div class="dropdown">
+                <a id="dropdown-btn" class="dropdown-active">My Articles</a>
+                <div class="dropdown-content">
+                    <a href="/">All articles</a>
+                </div>
+            </div>
+            {{else}}
+            <div class="dropdown">
+                <a id="dropdown-btn" class="{{#if user}}dropdown-active{{/if}}" {{#unless user}}href="/"{{/unless}}>All articles</a>
+                {{#if user}}
+                <div class="dropdown-content">
+                    <a href="/my-articles" class="dropdown-active">My Articles</a>
+                </div>
+                {{/if}}
+            </div>
+            {{/if}}
+
+            <div class="topics">
+                <ul>
+                    <li class="list {{#if sports}} active {{/if}}">
+                        <a href="/topic/sports">
+                            <span class="icon">
+                                <i class="fa-solid fa-football"></i>
+                            </span>
+                            <span class="text">Sports</span>
+                        </a>
+                    </li>
+                    <li class="list {{#if parenting}} active {{/if}}">
+                        <a href="/topic/parenting">
+                            <span class="icon">
+                                <i class="fa-solid fa-baby"></i>
+                            </span>
+                            <span class="text">Parenting</span>
+                        </a>
+                    </li>
+                    <li class="list {{#if gaming}} active {{/if}}">
+                        <a href="/topic/gaming">
+                            <span class="icon">
+                                <i class="fa-solid fa-gamepad"></i>
+                            </span>
+                            <span class="text">Gaming</span>
+                        </a>
+                    </li>
+                    <li class="list {{#if gardening}} active {{/if}}">
+                        <a href="/topic/gardening">
+                            <span class="icon">
+                                <i class="fa-solid fa-seedling"></i>
+                            </span>
+                            <span class="text">Gardening</span>
+                        </a>
+                    </li>
+                    <li class="list {{#if hiking}} active {{/if}}">
+                        <a href="/topic/hiking">
+                            <span class="icon">
+                                <i class="fa-solid fa-mountain-sun"></i>
+                            </span>
+                            <span class="text">Hiking</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="extra-functions">
+                <div class="extras-link-container">
+                    <a class="extras-link" id="searchBtn">
+                        <span class="extras-icon">
+                            <i class="fa-solid fa-magnifying-glass fa-sm" id="search-btn"></i>
+                        </span>
+                        <span class="extras-text">Search</span>
+                    </a>
+                </div>
+                {{#if user}}
+                <div class="extras-link-container">
+                    <a href="../addArticle" class="extras-link">
+                        <span class="extras-icon">
+                            <i class="fa-solid fa-pen-to-square fa-md" id="write-btn"></i>
+                        </span>
+                        <span class="extras-text">Create Article</span>
+                    </a>
+                </div>
+                <div class="extras-link-container">
+                    <a href="/directMessage" class="extras-link">
+                        <span class="extras-icon">
+                            <i class="fas fa-comment-dots" id="chat-btn"></i>
+                        </span>
+                        <span class="extras-text">Chat</span>
+                    </a>
+                </div>
+                {{/if}}
+                <div id="searchModalBox" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <form class="modal-search-input">
+                                <i class="fa-solid fa-magnifying-glass fa-xs"></i>
+                                <input class="search-input" placeholder="Start typing" required="" type="text">
+                                <button class="reset" type="reset">
+                                    <i class="fa-solid fa-xmark fa-sm"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="modal-body">
+                            {{#if allArticleCards}}
+                            {{#each allArticleCards}}
+                            <div class="search-card" onclick="location.href='/article/{{this.articles_id}}'">
+                                <a class="search-card-content">
+                                    <img src="{{this.image}}">
+                                    <div class="search-card-title">
+                                        <div class="author-details">
+                                            <img class="search-user-avatar" src="{{this.avatar}}">
+                                            <p>{{this.username}}</p>
+                                        </div>
+                                        <p>{{this.title}}</p>
+                                    </div>
+                                </a>
+                            </div>
+                            {{/each}}
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="main-body">
+            {{{body}}}
+        </div>
+
+    </div>
+</body>
+
+</html>

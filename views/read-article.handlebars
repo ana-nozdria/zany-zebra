@@ -1,0 +1,121 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<body>
+    <div id="container">
+        <div class="full-article-container">
+            <h1>{{articleTitle}}</h1>
+            {{#unless userAvatar}}<h5>{{articleShortText}}</h5>{{/unless}}
+            {{#if usersArticles}}
+            <a href="/editArticle/{{article_id}}" class="edit-article-link">
+                <button class="edit-article">Edit Article</button>
+            </a>
+            <a href="/deleteArticle/{{article_id}}" class="delete-article-link">
+                <button class="delete-article">Delete Article</button>
+            </a>
+            {{/if}}
+
+            <div class="article-author-detail">
+                <div class="author-data">
+                    {{#if userAvatar}}
+                    <img class="user-avatar" src={{userAvatar}}>
+                    {{/if}}
+                    <h4>{{#unless userAvatar}}By {{/unless}}{{articleAuthor}}</h4>
+                </div>
+                {{#if userAvatar}}
+                <p>Article created: {{articleDate}}</p>
+                {{/if}}
+            </div>
+
+            {{#if articleImage}}
+            <img src={{articleImage}} class="full-article-image">
+            {{/if}}
+            <div class="full-article-content">
+                {{{articleText}}}
+            </div>
+            <br><br>
+            <h3>Comments</h3>
+            {{#if userAvatar}}
+            <div id="comments-area" class="comments-area">
+                <div>
+                    <div id="comments-section">
+                        {{#unless comments}}
+                        <p id="no-comment">There are no comments for this article. Be the first one! Comment below</p>
+                        {{else}}
+                        {{#each comments}}
+                        <div {{#if this.parent_comments_id}}class="individual-comment-container-reply" {{else}}
+                            class="individual-comment-container" {{/if}}>
+                            <p class="individual-comment"><img width="20px" src={{this.avatar}}><strong>
+                                    {{this.username}}</strong> on {{this.date}}
+                            </p>
+                            <p class="individual-comment-content">{{this.content}}</p>
+                            <span class="comment-action-icons">
+                                {{#isEqual this.username ../user.username}}
+                                <span id="delete-comment"
+                                    onclick="location='/deleteComment/{{articles_id}}/{{comments_id}}'">
+                                    <i class="fa-solid fa-trash-can fa-sm" id="delete-comment-icon"></i></span>
+                                {{/isEqual}}
+                                {{#if ../user.username}}<span id="reply-to-comment">
+                                    <i class="fa-solid fa-share fa-sm" id="reply-comment-icon"
+                                        data-parentcomment="{{this.parent_comments_id}}"
+                                        data-commentid="{{this.comments_id}}" data-username="{{this.username}}"
+                                        data-content="{{this.content}}"></i></span>{{/if}}
+                            </span>
+                        </div>
+                        {{/each}}
+                        {{/unless}}
+                    </div>
+
+                    <br><br>
+                    {{#if user}}
+                    <div class="comment-submission-form-container">
+                        <form id="comment-submission-form" action="/addComment" method="POST">
+                            <div id="replying-to-div" hidden="false">
+                                <p id="replying-to">Replying to username: "First 20 chars of their comment..."
+                                </p> <i id="remove-reply-to-comment" class="fa-solid fa-trash-can fa-sm"
+                                    id="delete-comment-icon"></i>
+                            </div>
+                            <input id="new_comment_parent_id" type="text" name="parent_id" hidden>
+                            <input type="text" value="{{article_id}}" name="article_id" hidden>
+                            <textarea id="comment-text-area" name="new_comment"
+                                placeholder="Enter your comment here..."></textarea>
+                            <br>
+                            <input type="submit">
+                        </form>
+                    </div>
+                    {{/if}}
+                </div>
+                <div class="card-container" id="read-article-card-container">
+                    <h4>More articles in this section</h4>
+                    {{#if articleCards}}
+                    {{#each articleCards}}
+                    <div class="card" onclick="location.href='/article/{{this.articles_id}}'">
+                        <div class="card-header">
+                            <img class="card-image" src="{{this.image}}">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-author">
+                                <img class="user-avatar" src="{{this.avatar}}">
+                                <p>{{this.username}}</p>
+                            </div>
+                            <h3 class="card-title">{{this.title}}</h3>
+                            <p class="card-text">{{this.short_text}}</p>
+                        </div>
+                    </div>
+                    {{/each}}
+                    {{/if}}
+                </div>
+            </div>
+            <div></div>
+
+            <div class="like-button-container">
+                <!-- Start BawkBox Code - This is the like/dislike button code. Source credited-->
+                <script
+                    data-sil-id="653e909c795ff3001e62992e">var loadWidget = function () { var d = document, w = window, l = window.location, p = l.protocol == "file:" ? "http://" : "//"; if (!w.WS) w.WS = {}; c = w.WS; var m = function (t, o) { var e = d.getElementsByTagName("script"); e = e[e.length - 1]; var n = d.createElement(t); if (t == "script") { n.async = true; } for (k in o) n[k] = o[k]; e.parentNode.insertBefore(n, e) }; m("script", { src: p + "bawkbox.com/widget/like-dislike/653e909c795ff3001e62992e?page=" + encodeURIComponent(l + ''), type: 'text/javascript' }); c.load_net = m; }; if (window.Squarespace) { document.addEventListener('DOMContentLoaded', loadWidget); setTimeOut(function () { document.addEventListener('DOMContentLoaded', loadWidget); }, 3000) } else { loadWidget() } </script>
+                <div class="sil-widget-like-dislike sil-widget" id="sil-widget-653e909c795ff3001e62992e"><a
+                        href="//bawkbox.com/install/like-dislike">Like Dislike Button</a></div>
+                        <!-- End BawkBox Code-->
+            </div>
+            {{/if}}
+
+        </div>
+</body>

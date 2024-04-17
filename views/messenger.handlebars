@@ -1,0 +1,21 @@
+<head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        let username = "{{username}}";
+    </script>
+    <script src="/js/direct-messaging.js"></script>
+</head>
+<body>
+    <div id="message-container">
+        <span id="joined-user">You have joined the chat</span>
+        <h2 >Chat with other authors!</h2>
+        <div id="input-container">
+            <label for="message-input" class="visually-hidden">Message</label>
+            <input type="text" id="message-input" placeholder="Type a message...">
+            <button type="button" id="message-button">Send</button>
+        </div>
+        <div id="messages">
+            <!-- Individual message divs will be appended here -->
+        </div>
+    </div>
+</body>

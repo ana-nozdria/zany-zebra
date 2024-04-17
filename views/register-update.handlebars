@@ -1,0 +1,114 @@
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/site.css">
+    <script type="text/javascript" src="js/client.js"></script>
+    <title>Zany Zebra</title>
+</head>
+
+<body class="user-body">
+
+    <div class="container">
+
+        {{! Display a message if one was provided. }}
+        {{#if toastMessage}}
+        <p>{{toastMessage}}</p>
+        {{/if}}
+
+        <section class="register-details">
+            <div class="form-box">
+
+                {{#if isUpdatePage}}
+                <h1 class = "register-update-title">Update Account Information</h1>
+                <form action="./update" method="POST">
+                {{else}}
+                <h1 class = "register-update-title">New Account</h1>
+                <form action="./register" method="POST">
+                {{/if}}
+
+                    <div class="input-box" id="setup-username">
+                        <input type="text" name="username" id="username" required>
+                        <label for="username">Username:</label>
+
+                        <span id="username-validity">Enter Username </span><span id="username-condition">(4+ char)</span>
+                    </div>
+
+                    <div class="input-box" id="setup-password">
+                        <input type="password" name="password" id="password" required>
+                        <label for="password">Password:</label>
+                        <span id="password-condition">(5+ char, 1 special char, 1 number)</span>
+                    </div>
+
+                    <div class="input-box" id="setup-password confirm-password">
+                        <input type="password" name="password-confirm" id="password-confirm" required>
+                        <label for="password-confirm">Confirm Password:</label>
+                        <span id="password-validity"></span>
+                    </div>
+
+                    <h1 class = "register-update-part">A bit about yourself</h1>
+                    <div class="user-details">
+                        <div class="name">
+                            <div class="about-box" id="setup-name fname">
+                                <label for="fname">Firstname:</label>
+                                <input type="text" name="fname" id="fname" required>
+                            </div>
+
+                            <div class="about-box" id="setup-name lname">
+                                <label for="lname">Lastname:</label>
+                                <input type="text" name="lname" id="lname" required>                    
+                            </div>
+                        </div>
+
+                        <div class="about-box" id="setup-dob">
+                            <label for="dOB">Date Of Birth:</label>
+                            <input type="date" name="birthdate" id="dOB" required>
+                        </div>
+
+                        <div class="about-box" id="setup-description">
+                            <label for="description">Description:</label>
+                            <textarea placeholder="A few words about yourself" rows="5" cols="50" name="description"
+                                id="description" required></textarea>
+                        </div>
+
+                        <div class="setup-avatar">
+                            <input type="radio" {{#unless isUpdatePage}}checked{{/unless}} id="avatar-one" value="/images/avatars/octopus.png" name="avatar">
+                            <label for="avatar-one"><img src="/images/avatars/octopus.png" width="50" alt="avatarOne"></label>
+
+                            <input type="radio" id="avatar-two" value="/images/avatars/bee.png" name="avatar">
+                            <label for="avatar-two"><img src="/images/avatars/bee.png" width="50" alt="avatarTwo"></label>
+
+                            <input type="radio" id="avatar-three" value="/images/avatars/sheep.png" name="avatar">
+                            <label for="avatar-three"><img src="/images/avatars/sheep.png" width="50" alt="avatarThree"></label>
+
+                            <input type="radio" id="avatar-four" value="/images/avatars/chick.png" name="avatar">
+                            <label for="avatar-four"><img src="/images/avatars/chick.png" width="50" alt="avatarFour"></label>
+
+                            <input type="radio" id="avatar-five" value="/images/avatars/chameleon.png" name="avatar">
+                            <label for="avatar-five"><img src="/images/avatars/chameleon.png" width="50"
+                                    alt="avatarFive"></label>
+                        </div>
+                    
+
+                        <div class="submit">
+                            {{#if isUpdatePage}}
+                            <button type="submit" id="submit-button" disabled>Update Information</button>
+                            {{else}}
+                            <button type="submit" id="submit-button" disabled>Create Account</button>
+                            {{/if}}
+                        </div>
+                    </div>
+                </form>
+
+                <div class = "login-update">
+                    {{#if isUpdatePage}}
+                    <p>To delete your account, please click <br> <a href="/delete">Delete Account</a>, striped pal!</p>
+                    {{else}}
+                    <p>Already have an account? <br> <a href="/login">Welcome back</a>, striped pal!</p>
+                    {{/if}}
+                </div>
+
+                <p><a href="/"><i class="fa-solid fa-house fa-lg"></i></a></p>
+            </div>
+        </section>
+    </div>
+</body>

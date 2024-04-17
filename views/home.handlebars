@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<body id="main-container">
+
+    <div class="card-container">
+
+        {{#if allArticleCards}}
+        {{#each allArticleCards}}
+        <div class="card" onclick="location.href='/article/{{this.articles_id}}'">
+            <div class="card-header">
+                <img class="card-image" src="{{this.image}}">
+            </div>
+            <div class="card-body">
+                <div class="card-author">
+                    <img class="user-avatar" src="{{this.avatar}}">
+                    <p>{{this.username}}</p>
+                </div>
+                <h3 class="card-title">{{this.title}}</h3>
+                <p class="card-text">{{this.short_text}}</p>
+            </div>
+        </div>
+        {{/each}}
+        {{/if}}
+    </div>
+
+</body>

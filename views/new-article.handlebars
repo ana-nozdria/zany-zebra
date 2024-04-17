@@ -1,0 +1,78 @@
+<head>
+    <script src="https://cdn.tiny.cloud/1/e6s42kr2ydfz9imjog9mlgt93lhal4kbggiae7ml5qvasyv7/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#mytextarea',
+            height: 300,
+            plugins: 'autoresize link image lists advlist',
+            toolbar: 'undo redo | h1 h2 h3 h4 | bold italic bullist | link',
+            advlist_bullet_styles: 'circle'
+        });
+    </script>
+</head>
+
+<body>
+    <div id="article-container">
+        {{#if isEditing}}
+        <h1>Update Your Article</h1>
+        {{else}}
+        <h1>Create Your Article</h1>
+        {{/if}}
+        <center>
+            {{#if isEditing}}
+            <form action="/updateArticle/{{article_id}}" method="POST" class="update-article-form"
+                enctype="multipart/form-data">
+                <label for="title">Article Title:</label>
+                <input type="text" id="title" name="title" value="{{articleTitle}}" required>
+
+                <label for="summary">Article Summary:</label>
+                <input type="text" id="summary" name="summary" value="{{articleSummary}}" required>
+
+                <label for="content">Article Content:</label>
+                <textarea id="mytextarea" name="content">{{articleContent}}</textarea>
+
+                <label for="topic">Choose a Topic:</label>
+                <select id="topic" name="topic" required>
+                    <option value=1>Sports</option>
+                    <option value=2>Parenting</option>
+                    <option value=3>Gaming</option>
+                    <option value=4>Gardening</option>
+                    <option value=5>Hiking</option>
+                </select>
+
+                <label for="upload_imageFile">Upload image</label>
+                <input type="file" id="imageFile" name="upload_imageFile">
+
+                <button id="update-article" type="submit">Submit</button>
+            </form>
+            {{else}}
+            <form action="./createArticle" method="POST" class="create-article-form" enctype="multipart/form-data">
+                <label for="title">Article Title:</label>
+                <input type="text" id="title" name="title" required>
+
+                <label for="summary">Article Summary:</label>
+                <input type="text" id="summary" name="summary" required>
+
+                <label for="content">Article Content:</label>
+                <textarea id="mytextarea" name="content"></textarea>
+
+                <label for="topic">Choose a Topic:</label>
+                <select id="topic" name="topic" required>
+                    <option value=1>Sports</option>
+                    <option value=2>Parenting</option>
+                    <option value=3>Gaming</option>
+                    <option value=4>Gardening</option>
+                    <option value=5>Hiking</option>
+                </select>
+
+                <label for="imageFile">Upload image</label>
+                <input type="file" id="imageFile" name="imageFile" accept=".jpg, .png, .jpeg, .gif, .bmp" required>
+
+                <button id="create-article" type="submit">Submit</button>
+            </form>
+            {{/if}}
+
+        </center>
+    </div>
+</body>

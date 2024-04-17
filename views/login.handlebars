@@ -1,0 +1,46 @@
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/site.css">
+    <script type="text/javascript" src="js/client.js"></script>
+    <title>Zany Zebra</title>
+</head>
+
+<body class="user-body">
+    <div class="container">
+
+        {{#if message}}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{{message}}}
+        </div>
+        {{/if}}
+
+        <section class="enter-details">
+            <div class="form-box">
+
+                <h1>Login</h1>
+                <form action="./login" method="POST">
+                    <div class="input-box">
+                        <input type="text" name="username" id="txtUsername" required>
+                        <label for="txtUsername">Username:</label>
+
+                    </div>
+
+                    <div class="input-box">
+                        <input type="password" name="password" id="txtPassword" required>
+                        <label for="txtPassword">Password:</label>
+                    </div>
+                    
+                    <button type="submit" id="submit-button">Log in</button>
+
+                </form>
+
+                <p>Don't have an account? Oh no! <br> Don't be a lone wolf, <a href="/register">join</a> our dazzle!</p>
+                <p><a href="/"><i class="fa-solid fa-house fa-lg"></i></a></p>  
+
+            </div>
+
+        </section>
+
+    </div>
+</body>
